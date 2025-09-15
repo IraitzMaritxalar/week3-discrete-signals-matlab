@@ -1,72 +1,75 @@
-This script demonstrates how to generate and display several common discrete-time signals using MATLAB.
-Each section creates one type of signal and plots it with a stem graph for clear visualization.
+Continuous-Time and Discrete-Time Signals in MATLAB
 
-1. Main Variable
-n = -10:10;
+This repository contains two main MATLAB scripts to visualize and understand classic signals in continuous time and discrete time.
 
+File 1: continuous_signals.m
 
-n is the discrete-time index ranging from –10 to +10.
+File 2: discrete_signals.m
 
-All signals are defined over this index.
+Each script generates plots of fundamental signals used in system analysis and signal processing.
 
-2. Signals
-a) Unit Impulse Signal
-impulse = (n == 0);
-stem(n, impulse);
+1. continuous_signals.m
 
+This script works with continuous time (variable t) ranging from -10 to 10 with a small step size (0.01) to simulate continuity. It includes:
 
-This signal equals 1 only at n = 0 and 0 everywhere else.
+Unit Impulse δ(t): Represented as a pulse at t=0.
 
-It is also called the delta function and is used as a basic building block in signal processing.
+Unit Step u(t): 0 for t<0 and 1 for t≥0.
 
-b) Unit Step Signal
-unit_step = (n >= 0);
-stem(n, unit_step);
+Unit Ramp r(t): Linearly increases from 0 for t≥0.
 
+Exponential Signal e^{-a t}u(t): Exponentially decaying signal for t≥0.
 
-This signal is 0 for n < 0 and 1 for n ≥ 0.
+Signum Function sgn(t): -1 for t<0, 0 at t=0, and +1 for t>0.
 
-It represents a sudden change from zero to one at time zero.
+Sinc Function sin(πt)/(πt): With limit value 1 at t=0.
 
-c) Unit Ramp Signal
-unit_ramp = n .* (n >= 0);
-stem(n, unit_ramp);
+This file mainly uses plot() for visualization, which is suitable for continuous-time signals.
 
+2. discrete_signals.m
 
-This signal increases linearly with n for n ≥ 0 and remains 0 for n < 0.
+This script works with discrete time (variable n) ranging from -10 to 10. It includes the same types of signals but defined over discrete indices:
 
-It models a steadily increasing input.
+Unit Impulse δ[n]: 1 at n=0 and 0 elsewhere.
 
-d) Exponential Signal
-exponential_signal = exp(0.1 * n);
-stem(n, exponential_signal);
+Unit Step u[n]: 0 for n<0 and 1 for n≥0.
 
+Unit Ramp r[n]: Increases linearly from 0 for n≥0 (only at integer steps).
 
-This signal follows an exponential curve.
+Exponential Signal (a^n)u[n]: Discrete exponential that decays based on base a for n≥0.
 
-Because the exponent is positive, it grows as n increases and shrinks as n decreases.
+Signum Function sgn[n]: -1 for n<0, 0 at n=0, and +1 for n>0.
 
-e) Signum Function
-signum_function = sign(n);
-stem(n, signum_function);
+Sinc Function sin(πn)/(πn): With limit value 1 at n=0.
 
+This file uses stem() for plotting, which is the standard way to represent discrete-time signals.
 
-This function indicates the sign of n:
+3. Key Differences Between the Two Scripts
 
-–1 for n < 0
+Domain:
 
-0 at n = 0
+continuous_signals.m uses continuous time (t with small steps).
 
-+1 for n > 0
+discrete_signals.m uses discrete time (n as integers).
 
-It’s useful for identifying positive and negative indices.
+Graphical Representation:
 
-f) Sinc Function
-sinc_function = sin(pi * n) ./ (pi * n);
-sinc_function(n == 0) = 1;
-stem(n, sinc_function);
+Continuous signals use plot() for smooth lines.
 
+Discrete signals use stem() for individual points.
 
-This function is the discrete-time sinc function, important in digital signal processing.
+Signal Nature:
 
-At n = 0, the expression gives 0/0, so the code manually sets the value to 1, which is the correct limit.
+Continuous signals emulate mathematical continuity.
+
+Discrete signals represent sampled data at specific points.
+
+Exponentials:
+
+Continuous: exp(-a*t) smoothly decays.
+
+Discrete: (a.^n) decays step by step.
+
+Sinc and Signum:
+
+Same concept but adapted to each domain.
